@@ -47,42 +47,6 @@ I pasted the genes into DAVID and got similar results.
 Although the gene list I selected here is slighly different from the one author selected (which we don't know), it can reproduce the results reported in the paper.
 
 
+Here, I use these genes to perform enrichment analyses and compare results from DAVID and clusterProfiler.
 
-```{r eval=F}
-david_bp <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="GOTERM_BP_ALL", qvalueCutoff=0.05, david.user="gcyu@connect.hku.hk")
-```
-
-```{r echo=F}
-load("david_bp.rda")
-```
-
-```{r fig.width=7, fig.height=7, fig.align='center'}
-summary(david_bp)[, -8]
-dotplot(david_bp, showCategory=12)
-```
-
-```{r eval=F}
-eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
-clusterProfiler_bp <- enrichGO(eg, ont="BP")
-```
-
-```{r echo=F}
-load("clusterProfiler_bp.rda")
-```
-
-```{r fig.width=10, fig.height=10}
-dotplot(clusterProfiler_bp, showCategory=20)
-```
-
-
-```{r fig.width=10, fig.height=10}
-merge_result(list(david=david_bp, clusterProfiler=clusterProfiler_bp)) %>%
-    plot(., showCategory=10)
-```
-
-
-## session info
-```{r}
-date()
-sessionInfo()
-```
++ [GO (BP) enrichment analysis](GO_BP.md)

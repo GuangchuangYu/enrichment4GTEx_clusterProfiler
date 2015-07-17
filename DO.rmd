@@ -1,0 +1,26 @@
+## DO enrichment analysis with DOSE
+
+```{r results='hide', message=F}
+require(DOSE)
+```
+
+```{r}
+load("cache/gene.rda")
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+do <- enrichDO(eg, readable=TRUE)
+```
+
+```{r fig.width=10, fig.height=10}
+summary(do)
+dotplot(do)
+enrichMap(do)
+```
+```{r fig.width=20, fig.height=20}
+cnetplot(do)
+```
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

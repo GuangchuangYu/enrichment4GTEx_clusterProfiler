@@ -68,3 +68,6 @@ Here, I use these genes to perform enrichment analyses and compare
 results from DAVID and clusterProfiler.
 
 -   [GO (BP) enrichment analysis](GO_BP.md)
+-   [KEGG enrichment analysis](KEGG.md)
+-   [DO enrichment analysis](DO.md)
+-   [Reactome enrichment analysis](Reactome.md)

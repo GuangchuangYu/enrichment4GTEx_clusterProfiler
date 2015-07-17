@@ -16,8 +16,11 @@ KEGG enrichment with DAVID
     ##                qvalue Count
     ## hsa03010 7.595859e-21    23
 
-GO (BP) enrichment with clusterProfiler
----------------------------------------
+Ribosome is the only term reported by DAVID consistent with the result
+reported in the supplemental file.
+
+KEGG enrichment with clusterProfiler
+------------------------------------
 
     eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
     clusterProfiler_KEGG <- enrichKEGG(eg)
@@ -47,8 +50,8 @@ GO (BP) enrichment with clusterProfiler
 
 ![](KEGG_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
-Compare GO (BP) enrichment result obtained from DAVID and clusterProfiler
--------------------------------------------------------------------------
+Compare KEGG enrichment result obtained from DAVID and clusterProfiler
+----------------------------------------------------------------------
 
     merge_result(list(david=david_KEGG, clusterProfiler=clusterProfiler_KEGG)) %>%
         plot(., showCategory=10)
@@ -69,7 +72,7 @@ Session info
 
     date()
 
-    ## [1] "Fri Jul 17 14:49:34 2015"
+    ## [1] "Fri Jul 17 15:15:40 2015"
 
     sessionInfo()
 
@@ -85,27 +88,28 @@ Session info
     ## [8] methods   base     
     ## 
     ## other attached packages:
-    ##  [1] RDAVIDWebService_1.6.0 ggplot2_1.0.1          GOstats_2.34.0        
-    ##  [4] Category_2.34.2        GO.db_3.1.2            AnnotationDbi_1.30.1  
-    ##  [7] GenomeInfoDb_1.4.1     IRanges_2.2.5          S4Vectors_0.6.1       
-    ## [10] Matrix_1.2-2           Biobase_2.28.0         BiocGenerics_0.14.0   
-    ## [13] graph_1.46.0           clusterProfiler_2.3.6  DOSE_2.7.9            
-    ## [16] RSQLite_1.0.0          DBI_0.3.1              rmarkdown_0.7         
-    ## [19] roxygen2_4.1.1         magrittr_1.5           BiocInstaller_1.18.3  
+    ##  [1] ReactomePA_1.13.2      org.Hs.eg.db_3.1.2     DO.db_2.9             
+    ##  [4] RDAVIDWebService_1.6.0 ggplot2_1.0.1          GOstats_2.34.0        
+    ##  [7] Category_2.34.2        GO.db_3.1.2            AnnotationDbi_1.30.1  
+    ## [10] GenomeInfoDb_1.4.1     IRanges_2.2.5          S4Vectors_0.6.1       
+    ## [13] Matrix_1.2-2           Biobase_2.28.0         BiocGenerics_0.14.0   
+    ## [16] graph_1.46.0           clusterProfiler_2.3.6  DOSE_2.7.9            
+    ## [19] RSQLite_1.0.0          DBI_0.3.1              rmarkdown_0.7         
+    ## [22] roxygen2_4.1.1         magrittr_1.5           BiocInstaller_1.18.3  
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] KEGGREST_1.8.0         qvalue_2.0.0           genefilter_1.50.0     
     ##  [4] reshape2_1.4.1         rJava_0.9-6            splines_3.2.1         
-    ##  [7] lattice_0.20-31        colorspace_1.2-6       htmltools_0.2.6       
-    ## [10] XML_3.98-1.3           RBGL_1.44.0            survival_2.38-3       
-    ## [13] topGO_2.20.0           plyr_1.8.3             stringr_1.0.0         
-    ## [16] zlibbioc_1.14.0        Biostrings_2.36.1      munsell_0.4.2         
-    ## [19] GOSemSim_1.27.4        gtable_0.1.2           evaluate_0.7          
-    ## [22] labeling_0.3           knitr_1.10.5           SparseM_1.6           
-    ## [25] GSEABase_1.30.2        proto_0.3-10           Rcpp_0.11.6           
-    ## [28] xtable_1.7-4           scales_0.2.5           formatR_1.2           
-    ## [31] DO.db_2.9              annotate_1.46.1        XVector_0.8.0         
-    ## [34] png_0.1-7              digest_0.6.8           stringi_0.4-1         
-    ## [37] grid_3.2.1             tools_3.2.1            MASS_7.3-42           
-    ## [40] httr_1.0.0             AnnotationForge_1.10.1 R6_2.1.0              
-    ## [43] igraph_1.0.1
+    ##  [7] lattice_0.20-31        tcltk_3.2.1            graphite_1.15.0       
+    ## [10] colorspace_1.2-6       htmltools_0.2.6        XML_3.98-1.3          
+    ## [13] RBGL_1.44.0            survival_2.38-3        topGO_2.20.0          
+    ## [16] plyr_1.8.3             stringr_1.0.0          zlibbioc_1.14.0       
+    ## [19] Biostrings_2.36.1      munsell_0.4.2          GOSemSim_1.27.4       
+    ## [22] gtable_0.1.2           evaluate_0.7           labeling_0.3          
+    ## [25] knitr_1.10.5           SparseM_1.6            GSEABase_1.30.2       
+    ## [28] proto_0.3-10           Rcpp_0.11.6            reactome.db_1.52.1    
+    ## [31] xtable_1.7-4           scales_0.2.5           formatR_1.2           
+    ## [34] annotate_1.46.1        XVector_0.8.0          png_0.1-7             
+    ## [37] digest_0.6.8           stringi_0.4-1          grid_3.2.1            
+    ## [40] tools_3.2.1            MASS_7.3-42            httr_1.0.0            
+    ## [43] AnnotationForge_1.10.1 R6_2.1.0               igraph_1.0.1

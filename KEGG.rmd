@@ -20,7 +20,9 @@ load("cache/david_KEGG.rda")
 summary(david_KEGG)[, -8]
 ```
 
-## GO (BP) enrichment with clusterProfiler
+Ribosome is the only term reported by DAVID consistent with the result reported in the supplemental file.
+
+## KEGG enrichment with clusterProfiler
 
 ```{r eval=F}
 eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
@@ -38,7 +40,7 @@ dotplot(clusterProfiler_KEGG, showCategory=9)
 ```
 
 
-## Compare GO (BP) enrichment result obtained from DAVID and clusterProfiler
+## Compare KEGG enrichment result obtained from DAVID and clusterProfiler
 ```{r fig.width=10, fig.height=10}
 merge_result(list(david=david_KEGG, clusterProfiler=clusterProfiler_KEGG)) %>%
     plot(., showCategory=10)

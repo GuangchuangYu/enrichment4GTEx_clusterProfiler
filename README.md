@@ -43,6 +43,8 @@ a [csv file](tableS17.csv).
 
     ## [1] 212
 
+    save(gene, file="cache/gene.rda")
+
 The authors did not mention how they define ***high contribution***,
 here I use the top 2% of genes and get 212 genes with 168 genes that
 could be mapped in the DAVID database. Slightly large than the number

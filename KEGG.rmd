@@ -1,0 +1,58 @@
+## KEGG enrichment with DAVID
+
+```{r results='hide', message=F}
+require(magrittr)
+require(DOSE)
+require(RDAVIDWebService)
+require(clusterProfiler)
+```
+
+```{r eval=F}
+load("cache/gene.rda")
+david_KEGG <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="KEGG_PATHWAY", david.user="gcyu@connect.hku.hk")
+```
+
+```{r echo=F}
+load("cache/david_KEGG.rda")
+```
+
+```{r fig.width=7, fig.height=7, fig.align='center'}
+summary(david_KEGG)[, -8]
+```
+
+## GO (BP) enrichment with clusterProfiler
+
+```{r eval=F}
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+clusterProfiler_KEGG <- enrichKEGG(eg)
+```
+
+```{r echo=F}
+load("cache/clusterProfiler_KEGG.rda")
+```
+
+```{r fig.width=10, fig.height=10}
+dim(summary(clusterProfiler_KEGG))
+head(summary(clusterProfiler_KEGG)[, -8])
+dotplot(clusterProfiler_KEGG, showCategory=9)
+```
+
+
+## Compare GO (BP) enrichment result obtained from DAVID and clusterProfiler
+```{r fig.width=10, fig.height=10}
+merge_result(list(david=david_KEGG, clusterProfiler=clusterProfiler_KEGG)) %>%
+    plot(., showCategory=10)
+```
+
+
++ DAVID's KEGG annotate 5085 genes in background while clusterProfiler use latest online version that annotate 6895 genes.
++ DAVID only annotate 83 genes, while clusterProfiler can annotate 104 genes of the gene list with 212 genes in total.
++ DAVID enrich `r nrow(summary(david_bp))` KEGG terms, while clusterProfiler enrich `r nrow(summary(clusterProfiler_KEGG))` KEGG terms.
++ All enriched terms reported in DAVID were also reported by clusterProfiler. 
+
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

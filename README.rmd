@@ -30,6 +30,7 @@ gene %<>% as.character %>% gsub("\\.\\d+", "", .)
 
 head(gene)
 length(gene)
+save(gene, file="cache/gene.rda")
 ```
 
 The authors did not mention how they define __*high contribution*__, here I use the top 2% of genes and get `r length(gene)` genes with 168 genes that could be mapped in the DAVID database. Slightly large than the number (139) reported in [supplemental file](paper/Mele.SM.pdf).
@@ -50,3 +51,4 @@ Although the gene list I selected here is slighly different from the one author 
 Here, I use these genes to perform enrichment analyses and compare results from DAVID and clusterProfiler.
 
 + [GO (BP) enrichment analysis](GO_BP.md)
++ [KEGG enrichment analysis](KEGG.md)

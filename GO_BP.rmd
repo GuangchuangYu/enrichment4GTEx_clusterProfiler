@@ -8,6 +8,7 @@ require(clusterProfiler)
 ```
 
 ```{r eval=F}
+load("cache/gene.rda")
 david_bp <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="GOTERM_BP_ALL", david.user="gcyu@connect.hku.hk")
 ```
 
@@ -32,6 +33,7 @@ load("cache/clusterProfiler_bp.rda")
 ```
 
 ```{r fig.width=10, fig.height=10}
+dim(summary(clusterProfiler_bp))
 head(summary(clusterProfiler_bp)[, -8])
 dotplot(clusterProfiler_bp, showCategory=20)
 ```

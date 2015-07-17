@@ -6,6 +6,7 @@ GO (BP) enrichment with DAVID
     require(RDAVIDWebService)
     require(clusterProfiler)
 
+    load("cache/gene.rda")
     david_bp <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="GOTERM_BP_ALL", david.user="gcyu@connect.hku.hk")
 
     summary(david_bp)[, -8]
@@ -66,6 +67,10 @@ GO (BP) enrichment with clusterProfiler
     eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
     clusterProfiler_bp <- enrichGO(eg, ont="BP")
 
+    dim(summary(clusterProfiler_bp))
+
+    ## [1] 222   9
+
     head(summary(clusterProfiler_bp)[, -8])
 
     ##                    ID
@@ -124,7 +129,7 @@ Session info
 
     date()
 
-    ## [1] "Fri Jul 17 14:36:17 2015"
+    ## [1] "Fri Jul 17 14:45:10 2015"
 
     sessionInfo()
 

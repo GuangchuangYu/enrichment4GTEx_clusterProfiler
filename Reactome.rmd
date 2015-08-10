@@ -21,9 +21,6 @@ enrichMap(rr)
 ```
 ![](figures/Screenshot 2015-07-17 15.10.49.png)
 
-```{r fig.width=20, fig.height=20}
-cnetplot(do)
-```
 
 ## Session info
 ```{r}

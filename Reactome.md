@@ -47,9 +47,6 @@ Reactome enrichment analysis with DOSE
 
 ![](figures/Screenshot%202015-07-17%2015.10.49.png)
 
-    cnetplot(do)
-
-![](Reactome_files/figure-markdown_strict/unnamed-chunk-5-1.png)
 
 Session info
 ------------

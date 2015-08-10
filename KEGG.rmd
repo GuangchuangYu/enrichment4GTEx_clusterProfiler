@@ -49,7 +49,7 @@ merge_result(list(david=david_KEGG, clusterProfiler=clusterProfiler_KEGG)) %>%
 
 + DAVID's KEGG annotate 5085 genes in background while clusterProfiler use latest online version that annotate 6895 genes.
 + DAVID only annotate 83 genes, while clusterProfiler can annotate 104 genes of the gene list with 212 genes in total.
-+ DAVID enrich `r nrow(summary(david_bp))` KEGG terms, while clusterProfiler enrich `r nrow(summary(clusterProfiler_KEGG))` KEGG terms.
++ DAVID enrich `r nrow(summary(david_KEGG))` KEGG terms, while clusterProfiler enrich `r nrow(summary(clusterProfiler_KEGG))` KEGG terms.
 + All enriched terms reported in DAVID were also reported by clusterProfiler. 
 
 

@@ -62,7 +62,7 @@ Compare KEGG enrichment result obtained from DAVID and clusterProfiler
     use latest online version that annotate 6895 genes.
 -   DAVID only annotate 83 genes, while clusterProfiler can annotate 104
     genes of the gene list with 212 genes in total.
--   DAVID enrich 14 KEGG terms, while clusterProfiler enrich 9 KEGG
+-   DAVID enrich 1 KEGG terms, while clusterProfiler enrich 9 KEGG
     terms.
 -   All enriched terms reported in DAVID were also reported by
     clusterProfiler.

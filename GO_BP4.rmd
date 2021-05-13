@@ -1,0 +1,82 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+  pdf_document: default
+  html_document: default
+---
+## GO (BP) enrichment with DAVID
+
+```{r results='hide', message=F}
+require(magrittr)
+require(DOSE)
+require(RDAVIDWebService)
+require(clusterProfiler)
+```
+
+```{r eval=F}
+load("cache/gene.rda")
+david_bp4 <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="GOTERM_BP_ALL", david.user="gcyu@connect.hku.hk")
+save(david_bp4, file = "david_bp4.rda")
+```
+
+```{r echo=F}
+load("cache/david_bp.rda")
+```
+
+```{r fig.width=7, fig.height=7, fig.align='center'}
+summary(david_bp)[, -8]
+dotplot(david_bp, showCategory=12)
+```
+
+## GO (BP) enrichment with clusterProfiler
+
+
+
+```{r echo=F}
+load("cache/clusterProfiler_bp.rda")
+```
+
+```{r fig.width=10, fig.height=10}
+dim(summary(clusterProfiler_bp))
+head(summary(clusterProfiler_bp)[, -8])
+dotplot(clusterProfiler_bp, showCategory=20)
+```
+
+```{r echo=F}
+load("cache/clusterProfiler_bp4.rda")
+```
+
+```{r eval=F}
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+clusterProfiler_bp4 <- enrichGO(eg, ont="BP", OrgDb = org.Hs.eg.db)
+```
+
+
+```{r fig.width=10, fig.height=10}
+dim(clusterProfiler_bp4)
+head(clusterProfiler_bp4[, -8])
+dotplot(clusterProfiler_bp4, showCategory=20)
+```
+
+
+## Compare GO (BP) enrichment result obtained from DAVID and clusterProfiler
+```{r fig.width=10, fig.height=10}
+merge_result(list(david=david_bp, clusterProfiler=clusterProfiler_bp, clusterProfiler4=clusterProfiler_bp4)) %>%
+    dotplot(., showCategory=10)
+```
+
+```{r}
+summary(david_bp)[, "ID"] %in% summary(clusterProfiler_bp)[, "ID"]
+```
+
++ DAVID only annotate 168 genes, while clusterProfiler can annotate 194 genes of the gene list with 207 genes in total.
++ DAVID enrich `r nrow(summary(david_bp))` BP terms, while clusterProfiler enrich `r nrow(summary(clusterProfiler_bp))` BP terms.
++ All enriched terms reported in DAVID were also reported by clusterProfiler. 
+
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

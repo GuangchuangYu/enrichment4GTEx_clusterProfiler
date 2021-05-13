@@ -1,0 +1,78 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+  html_document: default
+  pdf_document: default
+---
+## KEGG enrichment with DAVID
+
+```{r results='hide', message=F}
+require(magrittr)
+require(DOSE)
+require(RDAVIDWebService)
+require(clusterProfiler)
+```
+
+```{r eval=F}
+load("cache/gene.rda")
+david_KEGG4 <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="KEGG_PATHWAY", david.user="gcyu@connect.hku.hk")
+save(david_KEGG4, file = "david_KEGG4.rda")
+```
+
+```{r echo=F}
+load("cache/david_KEGG.rda")
+```
+
+```{r fig.width=7, fig.height=7, fig.align='center'}
+summary(david_KEGG)[, -8]
+```
+
+Ribosome is the only term reported by DAVID consistent with the result reported in the supplemental file.
+
+## KEGG enrichment with clusterProfiler
+
+```{r eval=F}
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+clusterProfiler_KEGG4 <- enrichKEGG(eg)
+save(clusterProfiler_KEGG4, file = "clusterProfiler_KEGG4.rda")
+```
+
+```{r echo=F}
+load("cache/clusterProfiler_KEGG.rda")
+```
+
+```{r fig.width=10, fig.height=10}
+dim(summary(clusterProfiler_KEGG))
+head(summary(clusterProfiler_KEGG)[, -8])
+dotplot(clusterProfiler_KEGG, showCategory=9)
+```
+
+```{r echo=F}
+load("cache/clusterProfiler_KEGG4.rda")
+```
+
+```{r fig.width=10, fig.height=10}
+dim(clusterProfiler_KEGG4)
+head(clusterProfiler_KEGG4[, -8])
+dotplot(clusterProfiler_KEGG4, showCategory=9)
+```
+
+## Compare KEGG enrichment result obtained from DAVID and clusterProfiler
+```{r fig.width=10, fig.height=10}
+merge_result(list(david=david_KEGG, clusterProfiler=clusterProfiler_KEGG, clusterProfiler4=clusterProfiler_KEGG4)) %>%
+    dotplot(., showCategory=10)
+```
+
+
++ DAVID's KEGG annotate 5085 genes in background while clusterProfiler use latest online version that annotate 6895 genes.
++ DAVID only annotate 83 genes, while clusterProfiler can annotate 104 genes of the gene list with 207 genes in total.
++ DAVID enrich `r nrow(summary(david_KEGG))` KEGG terms, while clusterProfiler enrich `r nrow(summary(clusterProfiler_KEGG))` KEGG terms.
++ All enriched terms reported in DAVID were also reported by clusterProfiler. 
+
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

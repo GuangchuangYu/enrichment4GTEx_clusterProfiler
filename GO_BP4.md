@@ -112,7 +112,7 @@ clusterProfiler_bp4 <- enrichGO(eg, ont="BP", OrgDb = org.Hs.eg.db)
 dim(clusterProfiler_bp4)
 ```
 
-    ## [1] 90  9
+    ## [1] 85  9
 
 ``` r
 head(clusterProfiler_bp4[, -8])
@@ -120,25 +120,25 @@ head(clusterProfiler_bp4[, -8])
 
     ##                    ID
     ## GO:0006614 GO:0006614
-    ## GO:0019080 GO:0019080
     ## GO:0006413 GO:0006413
-    ## GO:0019083 GO:0019083
+    ## GO:0019080 GO:0019080
     ## GO:0006613 GO:0006613
-    ## GO:0045047 GO:0045047
-    ##                                                            Description
-    ## GO:0006614 SRP-dependent cotranslational protein targeting to membrane
-    ## GO:0019080                                       viral gene expression
-    ## GO:0006413                                    translational initiation
-    ## GO:0019083                                         viral transcription
-    ## GO:0006613               cotranslational protein targeting to membrane
-    ## GO:0045047                                     protein targeting to ER
+    ## GO:0019083 GO:0019083
+    ## GO:0000184 GO:0000184
+    ##                                                                    Description
+    ## GO:0006614         SRP-dependent cotranslational protein targeting to membrane
+    ## GO:0006413                                            translational initiation
+    ## GO:0019080                                               viral gene expression
+    ## GO:0006613                       cotranslational protein targeting to membrane
+    ## GO:0019083                                                 viral transcription
+    ## GO:0000184 nuclear-transcribed mRNA catabolic process, nonsense-mediated decay
     ##            GeneRatio   BgRatio       pvalue     p.adjust       qvalue Count
-    ## GO:0006614    23/194 105/18670 2.685513e-24 3.322067e-21 2.992563e-21    23
-    ## GO:0019080    28/194 191/18670 2.840591e-24 3.322067e-21 2.992563e-21    28
-    ## GO:0006413    28/194 193/18670 3.822862e-24 3.322067e-21 2.992563e-21    28
-    ## GO:0019083    27/194 177/18670 6.567617e-24 3.540652e-21 3.189468e-21    27
-    ## GO:0006613    23/194 109/18670 6.790664e-24 3.540652e-21 3.189468e-21    23
-    ## GO:0045047    23/194 118/18670 4.771354e-23 2.073153e-20 1.867525e-20    23
+    ## GO:0006614    23/193 105/18866 1.883501e-24 2.680929e-21 2.436185e-21    23
+    ## GO:0006413    28/193 192/18866 2.155120e-24 2.680929e-21 2.436185e-21    28
+    ## GO:0019080    28/193 195/18866 3.352869e-24 2.680929e-21 2.436185e-21    28
+    ## GO:0006613    23/193 109/18866 4.765420e-24 2.680929e-21 2.436185e-21    23
+    ## GO:0019083    27/193 178/18866 5.091016e-24 2.680929e-21 2.436185e-21    27
+    ## GO:0000184    23/193 120/18866 5.052559e-23 1.900484e-20 1.726988e-20    23
 
 ``` r
 dotplot(clusterProfiler_bp4, showCategory=20)
@@ -179,7 +179,7 @@ summary(david_bp)[, "ID"] %in% summary(clusterProfiler_bp)[, "ID"]
 date()
 ```
 
-    ## [1] "Thu May 13 20:38:23 2021"
+    ## [1] "Thu May 13 21:21:54 2021"
 
 ``` r
 sessionInfo()

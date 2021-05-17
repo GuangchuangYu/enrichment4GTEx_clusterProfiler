@@ -14,7 +14,7 @@ output:
 
 ----
 
-We re-run the comparison with latest version of DAVID (v6.8) and clusterProfiler (v4) in May 17, 2021. The result can be found on the [new-result-2021](https://github.com/GuangchuangYu/enrichment4GTEx_clusterProfiler/tree/master/new-result-2021) foulder.
+We re-run the comparison with latest version of DAVID (v6.8) and clusterProfiler (v4) in May 17, 2021. The result can be found in the [new-result-2021](https://github.com/GuangchuangYu/enrichment4GTEx_clusterProfiler/tree/master/new-result-2021) foulder.
 
 ----
 

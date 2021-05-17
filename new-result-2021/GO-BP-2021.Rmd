@@ -1,0 +1,97 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+  pdf_document: default
+  html_document: default
+---
+
+
+## GO (BP) enrichment with DAVID
+
+Re-analyzed with David v6.8 (update date: May 2016).
+
+```{r results='hide', message=F}
+library(DOSE)
+library(RDAVIDWebService)
+library(clusterProfiler)
+library(enrichplot)
+```
+
+```{r eval=F}
+load("../cache/gene.rda")
+david_v6.8_bp <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="GOTERM_BP_ALL", david.user="gcyu@connect.hku.hk")
+```
+
+```{r echo=F, eval=F}
+save(david_v6.8_bp, file = "david_v6.8_bp.rda")
+```
+
+```{r echo=F}
+load("david_v6.8_bp.rda")
+```
+
+
+## GO (BP) enrichment with clusterProfiler v4
+
+
+
+```{r eval=F}
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+clusterProfiler_bp4 <- enrichGO(eg, ont="BP", OrgDb = org.Hs.eg.db, maxGSSize = NULL)
+```
+
+```{r eval=F, echo=F}
+save(clusterProfiler_bp4, file = "clusterProfiler_bp4.rda")
+```
+
+```{r echo=F}
+load("clusterProfiler_bp4.rda")
+```
+
+
+
+## Compare GO (BP) enrichment result obtained from DAVID and clusterProfiler
+
+Load previous result with David v6.7 (update date: Dec 2009)
+
+```{r warning=FALSE}
+load("../cache/david_bp.rda")
+```
+
+Load previous result with clusterProfiler v2.3.6 (Jul 2015)
+
+```{r warning=FALSE}
+load("../cache/clusterProfiler_bp.rda")
+```
+
+```{r}
+f <- function(x) {
+  x <- x[1]
+  as.numeric(sub("^\\d+\\/", "", x))
+}
+
+d <- tibble::tribble(~Software, ~nTerm_enriched, ~nGene_Annotated, ~nGene_Background,
+                "David_v6.7", nrow(david_bp), f(david_bp$GeneRatio), f(david_bp$BgRatio),
+                "David_v6.8", nrow(david_v6.8_bp), f(david_v6.8_bp$GeneRatio), f(david_v6.8_bp$BgRatio),
+                "clusterProfiler_v2", nrow(clusterProfiler_bp), f(clusterProfiler_bp$GeneRatio), f(clusterProfiler_bp$BgRatio),
+                "clusterProfiler_v4", nrow(clusterProfiler_bp4), f(clusterProfiler_bp4$GeneRatio), f(clusterProfiler_bp4$BgRatio),
+)
+knitr::kable(d)
+```
+
+
+```{r fig.width=12, fig.height=12}
+merge_result(list(david=david_bp, 
+                  david_v6.8=david_bp4, 
+                  clusterProfiler=clusterProfiler_bp, 
+                  clusterProfiler4=clusterProfiler_bp4)) %>%
+    dotplot(., showCategory=20)
+```
+
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

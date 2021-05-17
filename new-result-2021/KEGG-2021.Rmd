@@ -1,0 +1,93 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+  html_document: default
+  pdf_document: default
+---
+
+## KEGG enrichment with DAVID
+
+```{r message=F}
+library(DOSE)
+library(RDAVIDWebService)
+library(clusterProfiler)
+library(enrichplot)
+```
+
+Re-analyzed with David v6.8 (update date: May 2016).
+
+```{r eval=F}
+load("../cache/gene.rda")
+david_v6.8_kegg <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="KEGG_PATHWAY", david.user="gcyu@connect.hku.hk")
+```
+
+```{r reval=F, echo=FALSE}
+save(david_v6.8_kegg, file = "david_v6.8_kegg.rda")
+```
+
+```{r echo=F}
+load("david_v6.8_kegg.rda")
+```
+
+## KEGG enrichment with clusterProfiler v4
+
+```{r eval=F}
+eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
+clusterProfiler_KEGG4 <- enrichKEGG(eg)
+```
+```{r echo=FALSE, eval=FALSE}
+save(clusterProfiler_KEGG4, file = "clusterProfiler_KEGG4.rda")
+```
+
+
+
+## Compare KEGG enrichment result obtained from DAVID and clusterProfiler
+
+
+Load previous result with David v6.7 (update date: Dec 2009)
+
+```{r warning=FALSE}
+load("../cache/david_KEGG.rda")
+```
+
+Load previous result with clusterProfiler v2.3.6 (Jul 2015)
+
+```{r echo=F, warning=FALSE}
+load("../cache/clusterProfiler_KEGG.rda")
+```
+
+
+```{r}
+f <- function(x) {
+  x <- x[1]
+  as.numeric(sub("^\\d+\\/", "", x))
+}
+
+d <- tibble::tribble(~Software, ~nPathway_enriched, ~nGene_Annotated, ~nGene_Background,
+                "David_v6.7", nrow(david_KEGG), f(david_KEGG$GeneRatio), f(david_KEGG$BgRatio),
+                "David_v6.8", nrow(david_v6.8_kegg), f(david_v6.8_kegg$GeneRatio), f(david_v6.8_kegg$BgRatio),
+                "clusterProfiler_v2", nrow(clusterProfiler_KEGG), f(clusterProfiler_KEGG$GeneRatio), f(clusterProfiler_KEGG$BgRatio),
+                "clusterProfiler_v4", nrow(clusterProfiler_KEGG4), f(clusterProfiler_KEGG4$GeneRatio), f(clusterProfiler_KEGG4$BgRatio)
+)
+knitr::kable(d)
+```
+
+
+
+```{r fig.width=9, fig.height=8}
+merge_result(list(david=david_KEGG, 
+                  david_v6.8 = david_v6.8_kegg,
+                  clusterProfiler=clusterProfiler_KEGG, 
+                  clusterProfiler4=clusterProfiler_KEGG4)) %>%
+    dotplot(., showCategory=10)
+```
+
+
+
+
+## Session info
+```{r}
+date()
+sessionInfo()
+```

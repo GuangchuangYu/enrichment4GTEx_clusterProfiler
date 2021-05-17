@@ -22,8 +22,8 @@ load("../cache/gene.rda")
 david_v6.8_kegg <- enrichDAVID(gene, idType="ENSEMBL_GENE_ID", annotation="KEGG_PATHWAY", david.user="gcyu@connect.hku.hk")
 ```
 
-```{r reval=F, echo=FALSE}
-save(david_v6.8_kegg, file = "david_v6.8_kegg.rda")
+```{r eval=F, echo=FALSE}
+save(david_v6.8_kegg, file = "david_v6.8_kegg.rda", compress = 'xz')
 ```
 
 ```{r echo=F}
@@ -37,10 +37,12 @@ eg=bitr(gene, "ENSEMBL", "ENTREZID", "org.Hs.eg.db")[, "ENTREZID"]
 clusterProfiler_KEGG4 <- enrichKEGG(eg)
 ```
 ```{r echo=FALSE, eval=FALSE}
-save(clusterProfiler_KEGG4, file = "clusterProfiler_KEGG4.rda")
+save(clusterProfiler_KEGG4, file = "clusterProfiler_KEGG4.rda", compress = 'xz')
 ```
 
-
+```{r echo=FALSE}
+load("clusterProfiler_KEGG4.rda")
+```
 
 ## Compare KEGG enrichment result obtained from DAVID and clusterProfiler
 

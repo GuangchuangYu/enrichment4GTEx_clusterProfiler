@@ -1,8 +1,22 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+  html_document: default
+  pdf_document: default
+---
+
 # functional enrichment for GTEx paper
 
 ### Guangchuang Yu
 #### 07/15, 2015
 
+
+----
+
+We re-run the comparison with latest version of DAVID (v6.8) and clusterProfiler (v4) in May 17, 2021. The result can be found on the [new-result-2021](https://github.com/GuangchuangYu/enrichment4GTEx_clusterProfiler/tree/master/new-result-2021) foulder.
+
+----
 
 
 Refer to the [issue](https://github.com/GuangchuangYu/DOSE/issues/6), this document will reproduce functional analysis using [DOSE](http://www.bioconductor/packages/DOSE) and [clusterProfiler](http://www.bioconductor.org/packages/clusterProfiler) packages.

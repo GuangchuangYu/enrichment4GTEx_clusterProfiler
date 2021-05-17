@@ -83,7 +83,7 @@ knitr::kable(d)
 
 ```{r fig.width=12, fig.height=12}
 merge_result(list(david=david_bp, 
-                  david_v6.8=david_bp4, 
+                  david_v6.8=david_v6.8_bp, 
                   clusterProfiler=clusterProfiler_bp, 
                   clusterProfiler4=clusterProfiler_bp4)) %>%
     dotplot(., showCategory=20)

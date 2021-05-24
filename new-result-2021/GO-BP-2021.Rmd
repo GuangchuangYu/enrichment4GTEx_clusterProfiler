@@ -1,12 +1,3 @@
----
-output:
-  md_document:
-    variant: markdown_github
-  pdf_document: default
-  html_document: default
----
-
-
 ## GO (BP) enrichment with DAVID
 
 Re-analyzed with David v6.8 (update date: May 2016).
@@ -42,7 +33,7 @@ clusterProfiler_bp4 <- enrichGO(eg, ont="BP", OrgDb = org.Hs.eg.db, maxGSSize = 
 ```
 
 ```{r eval=F, echo=F}
-save(clusterProfiler_bp4, file = "clusterProfiler_bp4.rda")
+save(clusterProfiler_bp4, file = "clusterProfiler_bp4.rda", compress = 'xz')
 ```
 
 ```{r echo=F}
